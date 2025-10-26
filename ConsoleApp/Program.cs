@@ -23,8 +23,7 @@ namespace ConsoleApp
 
             
             userRepo = new MongoUserRepository(userDatabase);
-            // gameRepo = new MongoGameRepository(gameDatabase);
-            gameRepo = new InMemoryGameRepository();
+            gameRepo = new MongoGameRepository(gameDatabase);
         }
 
         public static void Main(string[] args)
