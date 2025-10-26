@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Game.Domain;
+using MongoDB.Driver;
 
 namespace ConsoleApp
 {
@@ -9,10 +10,20 @@ namespace ConsoleApp
         private readonly IUserRepository userRepo;
         private readonly IGameRepository gameRepo;
         private readonly Random random = new Random();
+        
+        private const string UserDatabaseName = "user-db";
+        private const string GameDatabaseName = "game-db";
+        private const string ConnectionString = "mongodb://localhost:27017";
 
         private Program(string[] args)
         {
-            userRepo = new InMemoryUserRepository();
+            var mongoClient = new MongoClient(ConnectionString);
+            var userDatabase = mongoClient.GetDatabase(UserDatabaseName);
+            var gameDatabase = mongoClient.GetDatabase(GameDatabaseName);
+
+            
+            userRepo = new MongoUserRepository(userDatabase);
+            // gameRepo = new MongoGameRepository(gameDatabase);
             gameRepo = new InMemoryGameRepository();
         }
 
