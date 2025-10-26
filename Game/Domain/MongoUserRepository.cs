@@ -1,7 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
-using Amazon.Runtime;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Game.Domain
@@ -14,6 +11,7 @@ namespace Game.Domain
         public MongoUserRepository(IMongoDatabase database)
         {
             userCollection = database.GetCollection<UserEntity>(CollectionName);
+            userCollection.Indexes.CreateOne(Builders<UserEntity>.IndexKeys.Ascending(x => x.Login), new CreateIndexOptions {Unique = true});
         }
 
         public UserEntity Insert(UserEntity user)

@@ -114,7 +114,6 @@ namespace Tests
 
 
         [Test(Description = "Тест на наличие индекса по логину")]
-        [Explicit("Это дополнительная задача Индекс")]
         [MaxTime(15000)]
         public void SearchByLoginFast()
         {
@@ -124,7 +123,6 @@ namespace Tests
 
 
         [Test(Description = "Тест на уникальный индекс по логину")]
-        [Explicit("Это дополнительная задача Индекс")]
         public void LoginDuplicateNotAllowed()
         {
             Action action = () =>
